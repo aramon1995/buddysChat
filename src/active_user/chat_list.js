@@ -1,10 +1,16 @@
 import React from 'react';
 import { auth } from '../services/firebase';
+import ReactDom from 'react-dom';
 
 class ChatList extends React.Component {
 
     constructor(props) {
         super(props);
+    }
+
+    componentDidUpdate() {
+        const node = ReactDom.findDOMNode(this);
+        node.scrollTop = node.scrollHeight;
     }
 
     render() {
@@ -18,8 +24,8 @@ class ChatList extends React.Component {
                                     <div>
                                         <span>{chat.content}</span>
                                     </div>
-                                    <div>
-                                        <span>{chat.uid}</span>
+                                    <div className='message-details'>
+                                        <span>{new Date().toLocaleDateString() === new Date(chat.timestamp).toLocaleDateString() ? new Date(chat.timestamp).toLocaleTimeString() : new Date(chat.timestamp).toLocaleDateString()}</span>
                                     </div>
                                 </div>
                             </div>

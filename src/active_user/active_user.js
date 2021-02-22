@@ -11,7 +11,6 @@ class ActiveUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            windowWidth: window.innerWidth,
             roomId: 'test_room',
             chats: [],
             readError: null
@@ -20,7 +19,6 @@ class ActiveUser extends React.Component {
 
 
     componentDidMount() {
-        window.addEventListener("resize", this.handleResize);
         this.setState({ readError: null });
         try {
             db.ref("chats").on("value", snapshot => {
@@ -35,14 +33,12 @@ class ActiveUser extends React.Component {
         }
     }
 
-    handleResize = (e) => {
-        this.setState({ windowWidth: window.innerWidth });
-    }   
-
     render() {
         return (
             <div className='grid-container'>
-                <RoomList/>
+                {/* under construction
+                rooms_list in side pane */}
+                {/* <RoomList/> */}
                 <ChatList chats = {this.state.chats}/>
                 <TextInput/>
             </div>
