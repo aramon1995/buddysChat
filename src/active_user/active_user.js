@@ -1,8 +1,10 @@
-import React from 'react'
-import RoomList from './room_list/room_list'
-import ChatList from './chat_list/chat_list'
-import { auth } from "../services/firebase";
+import React from 'react';
+import './active_user.scss'
+import RoomList from './room_list';
+import ChatList from './chat_list';
+import TextInput from './text_input';
 import { db } from "../services/firebase";
+
 
 class ActiveUser extends React.Component {
 
@@ -10,22 +12,15 @@ class ActiveUser extends React.Component {
         super(props);
         this.state = {
             windowWidth: window.innerWidth,
-            roomId: '',
-            user: auth().currentUser,
+            roomId: 'test_room',
             chats: [],
-            content: '',
-            readError: null,
-            writeError: null
+            readError: null
         }
     }
 
-    handleResize = (e) => {
-        this.setState({ windowWidth: window.innerWidth });
-    };
 
     componentDidMount() {
         window.addEventListener("resize", this.handleResize);
-
         this.setState({ readError: null });
         try {
             db.ref("chats").on("value", snapshot => {
@@ -40,67 +35,16 @@ class ActiveUser extends React.Component {
         }
     }
 
-
-    handleChange = (event)=> {
-        this.setState({
-            content: event.target.value
-        });
-    }
-
-     handleSubmit= async (event)=> {
-        event.preventDefault();
-        this.setState({ writeError: null });
-        try {
-          await db.ref("chats").push({
-            content: this.state.content,
-            timestamp: Date.now(),
-            uid: this.state.user.uid
-          });
-          this.setState({ content: '' });
-        } catch (error) {
-          this.setState({ writeError: error.message });
-        }
-      }
+    handleResize = (e) => {
+        this.setState({ windowWidth: window.innerWidth });
+    }   
 
     render() {
         return (
-            <div className='container-fluid'>
-
-                <div>
-                    {this.state.chats.map(chat => {
-                        return <p key={chat.timestamp}>{chat.content}</p>
-                    })}
-                </div>
-                <form onSubmit={this.handleSubmit}>
-                    <input onChange={this.handleChange} value={this.state.content}></input>
-                    {this.state.error ? <p>{this.state.writeError}</p> : null}
-                    <button type="submit">Send</button>
-                </form>
-
-
-
-                {this.state.windowWidth > 540 ?
-                    <div className='row'>
-                        <div className='col-4 shadow-sm' >
-                            <RoomList roomId={this.state.roomId} />
-                        </div>
-                        <div className='col-8'>
-                            <ChatList />
-                        </div>
-                    </div>
-                    :
-                    this.state.roomId === '' ?
-                        <div className='row'>
-                            <div className='col-12' >
-                                <RoomList roomId={this.state.roomId} />
-                            </div>
-                        </div>
-                        :
-                        <div className='row'>
-                            <div className='col-12' >
-                                <ChatList roomId={this.state.roomId} />
-                            </div>
-                        </div>}
+            <div className='grid-container'>
+                <RoomList/>
+                <ChatList chats = {this.state.chats}/>
+                <TextInput/>
             </div>
         )
     }

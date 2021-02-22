@@ -3,8 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Redirect, Route } from 'react-router-dom';
 import SignIn from './signin';
 import SignUp from './signup';
-import ActiveUser from './active_user/active_user'
-import {auth} from './services/firebase'
+import ActiveUser from './active_user/active_user';
+import {auth} from './services/firebase';
 
 
 

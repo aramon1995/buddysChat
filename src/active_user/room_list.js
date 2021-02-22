@@ -1,6 +1,6 @@
 import React from 'react'
 
-class ChatList extends React.Component {
+class RoomList extends React.Component {
 
     constructor(props) {
         super(props);
@@ -8,11 +8,11 @@ class ChatList extends React.Component {
 
     render() {
         return (
-            <div>
-                <p>chat list</p>
+            <div className='room-list'>
+                <p>room_list</p>
             </div>
         )
     }
 }
 
-export default ChatList
+export default RoomList
