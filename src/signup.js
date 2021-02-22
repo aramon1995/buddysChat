@@ -15,6 +15,7 @@ class SignUp extends React.Component {
         this.state = {
             email: '',
             password: '',
+            user:'',
             error: null
         }
     }
@@ -23,7 +24,7 @@ class SignUp extends React.Component {
         event.preventDefault();
         this.setState({ error: null });
         try {
-            await signup(this.state.email, this.state.password);
+            await signup(this.state.user, this.state.email, this.state.password);
         } catch (error) {
             this.setState({ error: error.message });
         }
@@ -41,6 +42,10 @@ class SignUp extends React.Component {
                 <Card className='shadow-sm'>
                     <Card.Body>
                         <Form onSubmit={this.handleSubmit}>
+                            <Form.Group controlId="user">
+                                <Form.Label>User</Form.Label>
+                                <Form.Control type="input" name='user' placeholder="Enter User" onChange={this.handleChange} value={this.state.user} />
+                            </Form.Group>
                             <Form.Group controlId="email">
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control type="email" name='email' placeholder="Enter email" onChange={this.handleChange} value={this.state.email} />

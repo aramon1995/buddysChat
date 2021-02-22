@@ -22,6 +22,9 @@ class ChatList extends React.Component {
                             <div className='col-12'>
                                 <div className={'message' + (chat.uid === auth().currentUser.uid ? ' message-me' : '')}>
                                     <div>
+                                        <span className='message-sender'>{chat.uname}</span>
+                                    </div>
+                                    <div>
                                         <span>{chat.content}</span>
                                     </div>
                                     <div className='message-details'>

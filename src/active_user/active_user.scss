@@ -9,8 +9,11 @@ body,
     display: grid;
     height: 100%;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 60px;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 60px;
     grid-template-areas:
+        "uinfo uinfo uinfo uinfo uinfo"
+        "chats chats chats chats chats"
+        "chats chats chats chats chats"
         "chats chats chats chats chats"
         "chats chats chats chats chats"
         "chats chats chats chats chats"
@@ -19,9 +22,29 @@ body,
         "input input input input input";
 }
 
+.uinfo{
+    grid-area: uinfo;
+    background: #efeeee;
+    box-shadow: 0 0 0.20rem 0.05rem rgba(70, 69, 69, 0.3);
+    z-index: 1;
+    padding: 0.5rem;
+    padding-left: 2rem;
+}
+
+.logout-button{
+    outline: none;
+    border: none;
+    background: #efeeee;
+    color: rgb(85, 83, 83);
+    :hover{
+        color: rgb(141, 138, 138);
+    }
+
+}
+
 .chat-list {
-    overflow-y: auto;
     grid-area: chats;
+    overflow-y: auto;
     height: 100%;
     padding: 2rem 4rem 0 4rem;
     background-color: #e5ddd5;
@@ -81,6 +104,11 @@ body,
 .message-me {
     background: #c6e4f8;
     float: right;
+}
+
+.message-sender {
+    font-size: 0.8rem;
+    opacity: 0.7;
 }
 
 .message-details {

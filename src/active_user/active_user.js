@@ -3,7 +3,7 @@ import './active_user.scss'
 import RoomList from './room_list';
 import ChatList from './chat_list';
 import TextInput from './text_input';
-import { db } from "../services/firebase";
+import { auth, db } from "../services/firebase";
 
 
 class ActiveUser extends React.Component {
@@ -39,8 +39,20 @@ class ActiveUser extends React.Component {
                 {/* under construction
                 rooms_list in side pane */}
                 {/* <RoomList/> */}
-                <ChatList chats = {this.state.chats}/>
-                <TextInput/>
+                <div className='uinfo'>
+                    <div>
+                        <span>{auth().currentUser.displayName}</span>
+                        <button className='logout-button float-right' onClick={()=>{auth().signOut()}}>
+                            <span>Close Session</span>
+                        </button>
+                    </div>
+                    <div>
+                        <span>{auth().currentUser.email}</span>
+                    </div>
+
+                </div>
+                <ChatList chats={this.state.chats} />
+                <TextInput />
             </div>
         )
     }

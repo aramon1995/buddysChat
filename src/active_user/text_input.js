@@ -21,6 +21,7 @@ class TextInput extends React.Component {
             await db.ref("chats").push({
                 content: to_write,
                 timestamp: Date.now(),
+                uname: auth().currentUser.displayName,
                 uid: auth().currentUser.uid
             });
         } catch (error) {
